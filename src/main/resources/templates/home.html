@@ -40,8 +40,8 @@
         <th>Breed</th>
         <th>Age</th>
         <th>Location</th>
-        <th>Favourite food</th>
         <th>Rating</th>
+        <th>Picture</th>
     </tr>
     <tr th:each="pet : ${allPets}">
         <td th:text="${pet.getPetId()}"></td>
@@ -49,8 +49,8 @@
         <td th:text="${pet.getPetBreed()}">Not available.</td>
         <td th:text="${pet.getPetAge()}" >Not available.</td>
         <td th:text="${pet.getPetLocation()}" >Not available.</td>
-        <td th:text="${pet.getFavouriteFood()}" >Not available.</td>
-        <td th:text="${pet.getPetRating()}"></td>
+        <td th:text="${pet.getPetRating()}">Not available.</td>
+        <td th:text="${pet.getPetPicture()}">Not available.</td>
     </tr>
 </table>
 </body>

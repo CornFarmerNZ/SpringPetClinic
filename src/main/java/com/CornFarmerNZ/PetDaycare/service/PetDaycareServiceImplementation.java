@@ -1,9 +1,8 @@
 package com.CornFarmerNZ.PetDaycare.service;
 
-import com.CornFarmerNZ.PetDaycare.entity.Owner;
 import com.CornFarmerNZ.PetDaycare.entity.Pet;
-import com.CornFarmerNZ.PetDaycare.repository.OwnerRepository;
 import com.CornFarmerNZ.PetDaycare.repository.PetDaycareRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +10,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Log4j2
 public class PetDaycareServiceImplementation implements PetDaycareService{
 
     @Autowired
     private PetDaycareRepository repository;
-    @Autowired
-    private OwnerRepository ownerRepository;
-
 
     @Override
     public Pet checkInPet(Pet pet) {
-        repository.save(pet);
+        Pet petToSave =
+                Pet.builder().petAge(pet.getPetAge()).petLocation(pet.getPetLocation()).petName(pet.getPetName()).petBreed(pet.getPetBreed()).petId(pet.getPetId()).petRating((long) 1.0d).petPicture(pet.getPetPicture()).build();
+        log.info("Pet to save: "+pet.toString());
+        repository.save(petToSave);
         return pet;
     }
 
@@ -38,19 +38,6 @@ public class PetDaycareServiceImplementation implements PetDaycareService{
         }
     }
 
-    @Override
-    public Owner addOwner(Owner owner) {
-        ownerRepository.save(owner);
-        return owner;
-    }
-
-    @Override
-    public Owner getOwnerById(Long id) throws Exception {
-        if(ownerRepository.findById(id).isPresent()){
-        return ownerRepository.findById(id).get();
-        }
-        else throw new Exception("Id("+id+") not found.");
-    }
 
 
     @Override

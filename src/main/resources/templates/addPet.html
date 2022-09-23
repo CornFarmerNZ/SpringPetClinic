@@ -31,6 +31,104 @@
   </nav>
 </div>
 
+<div style="text-align: center">
+  <form>
+    <div>
+      <div>
+        <div>
+      Name:
+        </div>
+        <label>
+          <input type="text" id="text1" name="text1"/>
+        </label>
+      </div>
+      <div>
+        <div>
+      Age:
+        </div>
+        <label>
+          <input type="text" id="text2" name="text2"/>
+        </label>
+      </div>
+      <div>
+        <div>
+      Breed/type:
+        </div>
+        <label>
+          <input type="text" id="text3" name="text3"/>
+        </label>
+      </div>
+      <div>
+        <div>
+          Location:
+        </div>
+        <label>
+          <input type="text" id="text4" name="text4"/>
+        </label>
+      </div>
+    </div>
+  </form>
+
+  <form>
+    <input type="file" onchange="loadFile(event)"  accept="image/gif, image/jpeg, image/png" name="image" id="file">
+  </form>
+  <img id="output" width="200px">
+  <form>
+    <button type="button" id="buttonSubmit" onclick="savePet();uploadImage()">Submit</button>
+  </form>
+</div>
+
+<script>
+  var image;
+  var imageUpload = new FormData();
+
+  var loadFile = function(event) {
+    image = document.getElementById('output');
+    image.src = URL.createObjectURL(event.target.files[0]);
+    console.log(image.toString());
+    console.log(image);
+    uploadImage();
+  }
+
+  function uploadImage(){
+    let imageRequest = new XMLHttpRequest();
+    imageRequest.open("POST", "https://mysterious-cliffs-03988.herokuapp.com/https://api.imgur.com/3/upload");
+    imageRequest.setRequestHeader("Authorization", "Client-ID {{3f36bd74b672b33}}");
+    imageRequest.setRequestHeader("Accept", "application/json");
+    imageRequest.setRequestHeader("Content-Type", "application/json");
+    imageRequest.send(image );
+  }
+
+  function savePet(){
+    let name;
+    let age;
+    let breed;
+    let location;
+
+    name = document.getElementById("text1").value;
+    age = document.getElementById("text2").value;
+    breed = document.getElementById("text3").value;
+    location = document.getElementById("text4").value;
+    console.log(name.toString() + age.toString() + breed.toString() + location.toString() +image.toString());
+
+    let data = JSON.stringify({'petName' : name, 'petAge': age, 'petBreed': breed, 'petLocation':location});
+    let request = new XMLHttpRequest();
+    request.open("POST","http://localhost:3000/addPet");
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(data);
+
+
+
+    // document.body.innerHTML = data;
+
+  }
+
+
+</script>
+
+<p id="test"></p>
+
+
 
 </body>
 </html>
