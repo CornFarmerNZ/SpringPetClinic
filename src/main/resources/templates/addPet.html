@@ -87,7 +87,6 @@
     image.src = URL.createObjectURL(event.target.files[0]);
     console.log(image.toString());
     console.log(image);
-    uploadImage();
   }
 
   function uploadImage(){
@@ -114,7 +113,7 @@
 
     let data = JSON.stringify({'petName' : name, 'petAge': age, 'petBreed': breed, 'petLocation':location});
     let request = new XMLHttpRequest();
-    request.open("POST","http://localhost:3000/addPet");
+    request.open("POST","https://petclinictest21.herokuapp.com/addPet");
     request.setRequestHeader("Content-Type", "application/json");
     request.send(data);
 
