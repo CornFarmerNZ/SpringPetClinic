@@ -1,0 +1,9 @@
+{
+  "name": "PetClinic",
+  "version": "1.0.0",
+  "dependencies": {
+    "aws-sdk": "^2.1223.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1"
+  }
+}

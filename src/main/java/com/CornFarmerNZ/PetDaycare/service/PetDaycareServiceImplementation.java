@@ -6,6 +6,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +44,14 @@ public class PetDaycareServiceImplementation implements PetDaycareService{
 
     @Override
     public List<Pet> getAllPets() {
-        return repository.findAll();
+        List<Pet> tempList = repository.findAll();
+        Collections.sort(tempList, (o1, o2) -> {
+            if((o1.getPetRating()-o2.getPetRating()) == 0){
+                return o1.getPetName().compareTo(o2.getPetName());
+            }else{
+                return (int)(o1.getPetRating()-o2.getPetRating());
+            }
+        });
+        return tempList;
     }
 }

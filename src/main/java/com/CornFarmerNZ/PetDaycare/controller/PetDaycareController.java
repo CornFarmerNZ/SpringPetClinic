@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Random;
+
 @Controller
 public class PetDaycareController {
 
@@ -14,12 +16,18 @@ public class PetDaycareController {
 
     @GetMapping("/")
     public String home(Model model){
-        model.addAttribute("allPets", service.getAllPets());
         return "home";
+    }
+    @GetMapping("/allPets")
+    public String allPetsPage(Model model){
+        model.addAttribute("allPets", service.getAllPets());
+        return "allPets";
     }
 
     @GetMapping("/addPet")
     public String addPetPage(Model model){
+        Random random = new Random();
+        model.addAttribute("randomNum", random.nextInt(2147000000));
         return "addPet";
     }
 
