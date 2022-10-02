@@ -1,6 +1,7 @@
 package com.CornFarmerNZ.PetDaycare.config;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -15,7 +16,7 @@ public class S3Config {
 	public static AmazonS3Client amazonS3Client() {
 		return (AmazonS3Client) AmazonS3ClientBuilder
 				.standard()
-				.withCredentials(new DefaultAWSCredentialsProviderChain())
+				.withCredentials(new EnvironmentVariableCredentialsProvider())
 				.withRegion(Region.US_WEST_2.toString())
 				.build();
 	}
