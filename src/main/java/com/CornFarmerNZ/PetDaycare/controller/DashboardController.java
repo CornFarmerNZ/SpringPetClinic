@@ -20,7 +20,9 @@ import javax.annotation.Generated;
 import javax.annotation.PostConstruct;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 
 @Controller
 public class DashboardController {
@@ -63,9 +65,18 @@ public class DashboardController {
 	}
 
 	@PostMapping("/uploadFile")
-	public int uploadFile(@RequestBody File file) {
+	public int uploadFile(@RequestBody byte[] bytes) {
 		int id = photoID;
+		try{
+		File file = new File("./");
+		FileOutputStream stream = new FileOutputStream(file);
+		stream.write(bytes);
 		transferManager.upload(bucketName, ""+photoID, file);
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
+
 		return id;
 
 	}

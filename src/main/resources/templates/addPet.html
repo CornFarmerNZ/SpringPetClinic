@@ -96,17 +96,15 @@
   }
 
   async function uploadImage() {
-   //  let imageRequest = new XMLHttpRequest();
-   //  imageRequest.open("POST", "472344002915.s3-control.us-west-2.amazonaws.com");
-   //  imageRequest.setRequestHeader("Accept", "application/json");
-   //  imageRequest.setRequestHeader("Content-Type", "application/json");
-   //  imageRequest.setRequestHeader("type", "URL");
-   // imageRequest.send(image);
+    let imageRequest = new XMLHttpRequest();
+    imageRequest.open("POST", "https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/uploadFile");
+    imageRequest.setRequestHeader("Content-Type", "image/jpg");
+   imageRequest.send(image);
 
-   await fetch("https://petclinictest21.herokuapp.com/uploadFile", {
-     method: "POST",
-     body: image
-   })
+   // await fetch("https://petclinictest21.herokuapp.com/uploadFile", {
+   //   method: "POST",
+   //   body: image
+   // })
 
 
 
