@@ -16,7 +16,6 @@ public class S3Config {
 	public static AmazonS3Client amazonS3Client() {
 		return (AmazonS3Client) AmazonS3ClientBuilder
 				.standard()
-				.withCredentials(new EnvironmentVariableCredentialsProvider())
 				.withRegion(Region.US_WEST_2.toString())
 				.build();
 	}
