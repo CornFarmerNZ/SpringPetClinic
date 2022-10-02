@@ -22,3 +22,72 @@ h1 {
 .active{
     border:1px solid rgb(95,185,47);
 }
+
+.mainImg {
+    float: right;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    width: 100%;
+    transition: .5s ease;
+    visibility:hidden;
+    color: white;
+    text-align: center;
+}
+
+
+.overlayTop {
+    position: absolute;
+    top: 0;
+    /*background: rgb(0, 0, 0);*/
+    /*background: rgba(0, 0, 0, 0.5); !* Black see-through *!*/
+    width: 100%;
+    transition: .5s ease;
+    opacity:1;
+    color: white;
+    text-align: center;
+}
+
+.divImg {
+    width:25%;
+    height:25%;
+    float:left;
+    overflow: hidden;
+    position:relative;
+    border-radius: 50%;
+    border: 2px groove white;
+}
+.bubble1 {
+    width:300px;
+    height:270px;
+    float:left;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5%;
+    border: 2px groove white;
+    background: darkolivegreen;
+    visibility: hidden;
+}
+
+
+.divImg:hover .overlay {
+    transition: .5s ease;
+    visibility:visible;
+}
+.divImg:hover  {
+    transition: .5s ease;
+   border: 2px groove rgba(0, 0, 0, 0.5);
+}
+
+.divImg:hover .bubble1 {
+    transition: .5s ease;
+    visibility:visible;
+}
+

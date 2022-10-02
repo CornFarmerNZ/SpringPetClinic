@@ -1,0 +1,28 @@
+#  spring.datasource.url=jdbc:mysql://clinicdb.cdmsidti6pai.us-west-2.rds.amazonaws.com:3306/petclinicdb
+#    #spring.datasource.url=jdbc:mysql://localhost:3306/localpetdb
+#    spring.datasource.driver-class-name= com.mysql.cj.jdbc.Driver
+#    spring.datasource.username= root
+#    #spring.datasource.password = password
+#    spring.datasource.password= briya123
+#    spring.jpa.database-platform= org.hibernate.dialect.MySQL57InnoDBDialect
+#    spring.jpa.hibernate.ddl-auto=update
+
+cloud:
+  aws:
+    credentials:
+      profile-name: default
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://clinicdb.cdmsidti6pai.us-west-2.rds.amazonaws.com:3306/petclinicdb
+    #url: jdbc:mysql://localhost:3306/localpetdb
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: briya123
+     # password: password
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    hibernate:
+      ddl-auto: update

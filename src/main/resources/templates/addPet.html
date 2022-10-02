@@ -96,15 +96,19 @@
   }
 
   async function uploadImage() {
-    let imageRequest = new XMLHttpRequest();
-   imageRequest.open("POST", "https://mysterious-cliffs-03988.herokuapp.com/https://api.imgur.com/3/upload");
-   imageRequest.setRequestHeader("Authorization", "Client-ID {{3f36bd74b672b33}}")
-    imageRequest.setRequestHeader("Accept", "application/json");
-    imageRequest.setRequestHeader("Content-Type", "application/json");
-    imageRequest.setRequestHeader("type", "URL");
-    imageRequest.setRequestHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
-    imageRequest.setRequestHeader("Access-Control-Allow-Origin", "*")
-   imageRequest.send(image);
+   //  let imageRequest = new XMLHttpRequest();
+   //  imageRequest.open("POST", "472344002915.s3-control.us-west-2.amazonaws.com");
+   //  imageRequest.setRequestHeader("Accept", "application/json");
+   //  imageRequest.setRequestHeader("Content-Type", "application/json");
+   //  imageRequest.setRequestHeader("type", "URL");
+   // imageRequest.send(image);
+
+   await fetch("", {
+     method: "POST",
+     body: image
+   })
+
+
 
   }
 

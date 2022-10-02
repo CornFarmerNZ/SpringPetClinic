@@ -4,12 +4,10 @@ import com.CornFarmerNZ.PetDaycare.entity.Pet;
 import com.CornFarmerNZ.PetDaycare.repository.PetDaycareRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Log4j2
@@ -17,6 +15,8 @@ public class PetDaycareServiceImplementation implements PetDaycareService{
 
     @Autowired
     private PetDaycareRepository repository;
+    private Pet petToday;
+
 
     @Override
     public Pet checkInPet(Pet pet) {
@@ -38,6 +38,19 @@ public class PetDaycareServiceImplementation implements PetDaycareService{
             System.out.println("Error: pet id doesn't exist.");
             return null;
         }
+    }
+
+    @Scheduled(cron = "* * * 1 * *")
+    @Override
+    public void getRandomPet(){
+        Random random = new Random();
+        List<Pet> tempList = repository.findAll();
+       petToday = tempList.get(Math.abs(random.nextInt() % tempList.size()));
+    }
+
+    public Pet getPetToday(){
+        getRandomPet();
+        return this.petToday;
     }
 
 
