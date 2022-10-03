@@ -77,7 +77,7 @@
   <form class="form" id="uploadForm" enctype="multipart/form-data">
     <input onchange="showImage(event)" type="file" accept="image/gif, image/jpeg, image/png" name="image" id="image">
     <img  id="output" width="200px"><br>
-    <button onclose="savePet()" type="submit" disabled="disabled" name="submit" id="submit">Submit Pet</button>
+    <button onclick="savePet()" type="submit" disabled="disabled" name="submit" id="submit">Submit Pet</button>
   </form>
 
 
@@ -101,7 +101,7 @@
         const formData = new FormData();
         console.log(input.files);
         formData.append("file", input.files[0]);
-        fetch("https://mysterious-cliffs-03988.herokuapp.com//https://petclinictest21.herokuapp.com/uploadFile",
+        fetch("https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/uploadFile",
                 {
                   method: "post",
                   body: formData,
@@ -116,27 +116,6 @@
   }
 
 
-  async function uploadImage(blob) {
-    let imageRequest = new XMLHttpRequest();
-   // imageRequest.open("POST", "https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/uploadFile");
-   //  imageRequest.open("POST", "http://localhost:8080/uploadFile");
-   //  imageRequest.setRequestHeader("Content-Type", "image/jpg");
-   //
-   // imageRequest.send(image);
-    const reader = new FileReader();
-
-    reader.onloadend = async function () {
-      reader.readAsDataURL(blob);
-
-      await fetch("https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/uploadFile", {
-        method: "POST",
-        body: reader.result
-      })
-    }
-
-
-
-  }
 
 
 
@@ -154,7 +133,7 @@
 
     let data = JSON.stringify({'petName' : name, 'petAge': age, 'petBreed': breed, 'petLocation':location});
     let request = new XMLHttpRequest();
-    request.open("POST","https://petclinictest21.herokuapp.com/addPet");
+    request.open("POST","https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/addPet");
     request.setRequestHeader("Content-Type", "application/json");
     request.send(data);
 
