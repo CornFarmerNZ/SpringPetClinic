@@ -76,7 +76,7 @@
 
   <form class="form" id="uploadForm" enctype="multipart/form-data">
     <input onchange="showImage(event)" type="file" accept="image/gif, image/jpeg, image/png" name="image" id="image">
-    <img  id="output" width="200px"><br>
+    <img  id="output" style="max-width: 200px; max-height:200px; width: auto; height: auto;text-align: center" ><br>
     <button onclick="savePet()" type="submit" disabled="disabled" name="submit" id="submit">Submit Pet</button>
   </form>
 
