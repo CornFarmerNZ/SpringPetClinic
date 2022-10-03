@@ -96,6 +96,7 @@
 
       uploadForm.addEventListener("submit", e => {
         console.log("event listener triggered")
+        e.preventDefault();
 
         const formData = new FormData();
         console.log(input.files);
@@ -105,6 +106,8 @@
                   method: "post",
                   body: formData,
                 }).catch(console.error);
+        document.getElementById("output").setAttribute("src","");
+        document.getElementById("submit").setAttribute("disabled","disable");
       });
 
   var showImage = function(event) {
