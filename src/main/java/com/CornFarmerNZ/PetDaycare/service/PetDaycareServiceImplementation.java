@@ -22,7 +22,7 @@ public class PetDaycareServiceImplementation implements PetDaycareService{
     @Override
     public Pet checkInPet(Pet pet) {
         Pet petToSave =
-                Pet.builder().petAge(pet.getPetAge()).petLocation(pet.getPetLocation()).petName(pet.getPetName()).petBreed(pet.getPetBreed()).petId(pet.getPetId()).petRating((long) 1.0d).build();
+                Pet.builder().petAge(pet.getPetAge()).petLocation(pet.getPetLocation()).petName(pet.getPetName()).petBreed(pet.getPetBreed()).petId(pet.getPetId()).petRating((long) 1.0d).petPicture(pet.getPetPicture()).build();
         log.info("Pet to save: "+pet.toString());
         repository.save(petToSave);
         return pet;
