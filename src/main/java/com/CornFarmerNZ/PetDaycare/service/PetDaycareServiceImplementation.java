@@ -46,7 +46,10 @@ public class PetDaycareServiceImplementation implements PetDaycareService{
     public void getRandomPet(){
         Random random = new Random();
         List<Pet> tempList = repository.findAll();
-       petToday = tempList.get(Math.abs(random.nextInt() % tempList.size()));
+        if(tempList.size()>0){
+
+
+       petToday = tempList.get(Math.abs(random.nextInt() % tempList.size()));}
     }
 
     public Pet getPetToday(){
