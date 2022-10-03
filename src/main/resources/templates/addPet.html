@@ -101,7 +101,7 @@
         const formData = new FormData();
         console.log(input.files);
         formData.append("file", input.files[0]);
-        fetch("https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/uploadFile",
+        fetch("https://petclinictest21.herokuapp.com/uploadFile",
                 {
                   method: "post",
                   body: formData,
