@@ -1,5 +1,6 @@
 package com.CornFarmerNZ.PetDaycare.controller;
 
+import com.CornFarmerNZ.PetDaycare.repository.PetDaycareRepository;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -40,8 +41,8 @@ public class DashboardController {
 	@Autowired
 	private TransferManager transferManager;
 
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	int photoID;
+	@Autowired
+	PetDaycareRepository repository;
 
 
 	private String bucketLocation;
@@ -71,7 +72,6 @@ public class DashboardController {
 
 	@PostMapping("uploadFile")
 	public String uploadFile(@RequestParam("file") MultipartFile file) {
-		int id = photoID;
 		System.out.println(file.getContentType());
 
 		File fileTemp = new File("src/main/resources/fileTemp.jpg");
@@ -82,7 +82,7 @@ public class DashboardController {
 		}
 
 		try{
-			transferManager.upload(bucketName, photoID+".jpg", fileTemp);
+			transferManager.upload(bucketName, repository.count()+".jpg", fileTemp);
 		}
 		catch (Exception e){
 			System.out.println(e);
