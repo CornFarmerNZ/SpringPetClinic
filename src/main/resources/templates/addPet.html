@@ -133,7 +133,7 @@
 
     let data = JSON.stringify({'petName' : name, 'petAge': age, 'petBreed': breed, 'petLocation':location});
     let request = new XMLHttpRequest();
-    request.open("POST","https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/addPet");
+    request.open("POST","https://petclinictest21.herokuapp.com/addPet");
     request.setRequestHeader("Content-Type", "application/json");
     request.send(data);
 
