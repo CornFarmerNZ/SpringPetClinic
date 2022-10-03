@@ -37,7 +37,7 @@
 </p>
 <div class="divImg">
   <div class="overlayTop">Pet of the day</div>
-<img class ="mainImg" src="https://github.com/CornFarmerNZ/SpringPetClinic/blob/master/src/main/resources/static/images/Dalmatian.jpg?raw=true" alt="Dalmation"/>
+  <a th:href="@{${randomPet.getPetPicture()}}"><img class="mainImg" th:src="@{${randomPet.getPetPicture()}}"/></a>
   <div th:class="overlay" th:text="${randomPet.getPetName()}"></div>
 </div>
 
