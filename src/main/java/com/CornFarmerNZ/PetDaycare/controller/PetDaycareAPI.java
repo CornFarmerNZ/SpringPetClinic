@@ -1,6 +1,7 @@
 package com.CornFarmerNZ.PetDaycare.controller;
 
 import com.CornFarmerNZ.PetDaycare.entity.Pet;
+import com.CornFarmerNZ.PetDaycare.repository.PetDaycareRepository;
 import com.CornFarmerNZ.PetDaycare.service.PetDaycareService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,20 @@ public class PetDaycareAPI {
 	@Autowired
 	private PetDaycareService service;
 
+	@Autowired
+	private PetDaycareRepository repository;
+
 
 
 	@PostMapping("")
 	public Pet addPet(@RequestBody Pet pet){
+
+
 		pet.setPetAge(Long.parseLong(""+pet.getPetAge()));
-		Pet addedPet = service.checkInPet(pet);
-		addedPet.setPetPicture("https://petclinicbucket51.s3.us-west-2.amazonaws.com/"+pet.getPetId()+".jpg");
+		pet.setPetId(repository.count());
+		pet.setPetPicture("https://petclinicbucket51.s3.us-west-2.amazonaws.com/"+pet.getPetId()+".jpg");
 		log.info("Adding pet"+pet.toString());
-		return addedPet;
+		return service.checkInPet(pet);
 	}
 
 }
