@@ -51,7 +51,7 @@
         <td th:text="${pet.getPetAge()}" >Not available.</td>
         <td th:text="${pet.getPetLocation()}" >Not available.</td>
         <td th:text="${pet.getPetRating()}">Not available.</td>
-        <td th:text="${pet.getPetPicture()}">Not available.</td>
+        <img th:src="@{${pet.getPetPicture()}}" width="200"/>
     </tr>
 </table>
 </body>

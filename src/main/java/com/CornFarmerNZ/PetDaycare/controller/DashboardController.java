@@ -5,24 +5,29 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.UploadPartRequest;
 import com.amazonaws.services.s3.transfer.TransferManager;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Generated;
 import javax.annotation.PostConstruct;
+import javax.imageio.ImageIO;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.util.Arrays;
+import java.util.Base64;
 
 @Controller
 public class DashboardController {
@@ -64,21 +69,37 @@ public class DashboardController {
 		return modelAndView;
 	}
 
-	@PostMapping("/uploadFile")
-	public int uploadFile(@RequestBody byte[] bytes) {
+	@PostMapping("uploadFile")
+	public String uploadFile(@RequestParam("file") MultipartFile file) {
 		int id = photoID;
+		System.out.println(file.getContentType());
+
+		File fileTemp = new File("src/main/resources/fileTemp.jpg");
+		try (OutputStream os = new FileOutputStream(fileTemp)) {
+			os.write(file.getBytes());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
 		try{
-		File file = new File("./");
-		FileOutputStream stream = new FileOutputStream(file);
-		stream.write(bytes);
-		transferManager.upload(bucketName, ""+photoID, file);
+			transferManager.upload(bucketName, photoID+".jpg", fileTemp);
 		}
 		catch (Exception e){
 			System.out.println(e);
 		}
-
-		return id;
-
+		return "addPet";
 	}
+
+//	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+//	public String submit(@RequestParam("file") MultipartFile file, ModelMap modelMap) {
+//		modelMap.addAttribute("file", file);
+//		System.out.println("model map added");
+//		return "fileUploadView";
+//	}
+//
+//	@GetMapping("/fileUploadView")
+//	public String fileUploadView(Model model){
+//		return "fileUploadView";
+//	}
 
 }

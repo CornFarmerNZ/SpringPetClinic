@@ -18,6 +18,7 @@ public class PetDaycareAPI {
 	@PostMapping("")
 	public Pet addPet(@RequestBody Pet pet){
 		pet.setPetAge(Long.parseLong(""+pet.getPetAge()));
+		pet.setPetPicture("https://petclinicbucket51.s3.us-west-2.amazonaws.com/"+pet.getPetId()+".jpg");
 		log.info("Adding pet"+pet.toString());
 		return service.checkInPet(pet);
 	}

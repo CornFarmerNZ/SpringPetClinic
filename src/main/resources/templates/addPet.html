@@ -35,6 +35,7 @@
   </nav>
 </div>
 
+
 <div style="text-align: center">
   <form>
     <div>
@@ -73,38 +74,65 @@
     </div>
   </form>
 
-  <form>
-    <input type="file" onchange="loadFile(event)"  accept="image/gif, image/jpeg, image/png" name="image" id="file">
+  <form class="form" id="uploadForm" enctype="multipart/form-data">
+    <input onchange="showImage(event)" type="file" accept="image/gif, image/jpeg, image/png" name="image" id="image">
+    <img  id="output" width="200px"><br>
+    <button onclose="savePet()" type="submit" disabled="disabled" name="submit" id="submit">Submit Pet</button>
   </form>
-  <img id="output" width="200px">
-  <form>
-    <button type="button" id="buttonSubmit" onclick="savePet()">Submit</button>
-  </form>
+
+
+
+
+
+<!--    onclick="savePet()"-->
+
 </div>
 
 <script>
-  var image;
-  var imageUpload = new FormData();
 
-  var loadFile = function(event) {
+  document.getElementById("submit").setAttribute("disabled","disable");
+      const uploadForm = document.getElementById("uploadForm");
+      const input = document.getElementById("image");
+
+      uploadForm.addEventListener("submit", e => {
+        console.log("event listener triggered")
+        e.preventDefault();
+
+        const formData = new FormData();
+        console.log(input.files);
+        formData.append("file", input.files[0]);
+        fetch("https://mysterious-cliffs-03988.herokuapp.com//https://petclinictest21.herokuapp.com/uploadFile",
+                {
+                  method: "post",
+                  body: formData,
+                }).catch(console.error);
+      });
+
+  var showImage = function(event) {
     image = document.getElementById('output');
     image.src = URL.createObjectURL(event.target.files[0]);
-    imageUpload.append("image", event.target.files[0]);
-    console.log(image.toString());
-    console.log(image);
-    uploadImage()
+    document.getElementById("submit").setAttribute("disabled","");
+    document.getElementById("submit").removeAttribute("disabled");
   }
 
-  async function uploadImage() {
-    let imageRequest = new XMLHttpRequest();
-    imageRequest.open("POST", "https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/uploadFile");
-    imageRequest.setRequestHeader("Content-Type", "image/jpg");
-   imageRequest.send(image);
 
-   // await fetch("https://petclinictest21.herokuapp.com/uploadFile", {
-   //   method: "POST",
-   //   body: image
-   // })
+  async function uploadImage(blob) {
+    let imageRequest = new XMLHttpRequest();
+   // imageRequest.open("POST", "https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/uploadFile");
+   //  imageRequest.open("POST", "http://localhost:8080/uploadFile");
+   //  imageRequest.setRequestHeader("Content-Type", "image/jpg");
+   //
+   // imageRequest.send(image);
+    const reader = new FileReader();
+
+    reader.onloadend = async function () {
+      reader.readAsDataURL(blob);
+
+      await fetch("https://mysterious-cliffs-03988.herokuapp.com/https://petclinictest21.herokuapp.com/uploadFile", {
+        method: "POST",
+        body: reader.result
+      })
+    }
 
 
 
@@ -122,7 +150,7 @@
     age = document.getElementById("text2").value;
     breed = document.getElementById("text3").value;
     location = document.getElementById("text4").value;
-    console.log(name.toString() + age.toString() + breed.toString() + location.toString() +image.toString());
+    console.log(name.toString() + age.toString() + breed.toString() + location.toString() +input.toString());
 
     let data = JSON.stringify({'petName' : name, 'petAge': age, 'petBreed': breed, 'petLocation':location});
     let request = new XMLHttpRequest();
