@@ -82,6 +82,7 @@ public class DashboardController {
 		}
 
 		try{
+			Thread.sleep(2000);
 			transferManager.upload(bucketName, repository.count()-1+".jpg", fileTemp);
 		}
 		catch (Exception e){
