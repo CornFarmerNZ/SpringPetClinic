@@ -82,7 +82,7 @@ public class DashboardController {
 		}
 
 		try{
-			transferManager.upload(bucketName, repository.count()+".jpg", fileTemp);
+			transferManager.upload(bucketName, repository.count()-1+".jpg", fileTemp);
 		}
 		catch (Exception e){
 			System.out.println(e);
